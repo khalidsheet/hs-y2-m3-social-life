@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Views\Components;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Layout extends Component
+class AppLayout extends Component
 {
-    public string $title;
+    public $title;
 
     public function __consturct(string $title = "LARAVEL APP")
     {
@@ -17,6 +17,6 @@ class Layout extends Component
 
     public function render(): View|Closure|string
     {
-        return view('components.layout');
+        return view('components.app-layout');
     }
 }

@@ -1,3 +1,3 @@
-<x-layout title="df">
-    ss
-</x-layout>
+<x-app-layout>
+    Main Content
+</x-app-layout>

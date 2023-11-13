@@ -15,8 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('post.login');
+});
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => "auth"], function () {
+    Route::group(["prefix" => "auth"], function () {
+        Route::post("/logout", [AuthController::class, "logout"])->name("home");
+    });
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
 });
