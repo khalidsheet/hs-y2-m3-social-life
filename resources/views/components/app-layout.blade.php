@@ -11,7 +11,7 @@
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
-    <link rel="stylesheet" href="{{ asset('/assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/app.css?v=') }}{{ now()->timestamp }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/icons.min.css') }}">
 </head>
 
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 @endauth
-                <div class="px-6 {{ !!auth()->user() ? 'pt-[92px] overflow-y-scroll flex-1' : '' }}">
+                <div class="px-6 flex-1 {{ !!auth()->user() ? 'pt-[92px] overflow-y-scroll' : '' }}">
                     {{ $slot }}
                 </div>
                 @auth
