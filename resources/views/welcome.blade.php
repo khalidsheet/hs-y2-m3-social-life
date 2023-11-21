@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="posting-area bg-white w-full rounded-lg p-4 flex flex-col overflow-hidden max-w-[800px] mx-auto">
+    <div class="posting-area bg-white w-full rounded-lg p-4 flex flex-col overflow-hidden max-w-[600px] mx-auto">
         <form class="flex flex-1 gap-x-4" method="POST" action="{{ route('post.publish') }}" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-1 gap-x-4">
@@ -43,14 +43,22 @@
         @endif
     @endif
 
-    <div class="posts">
+    <div class="posts max-w-[600px] mx-auto mt-3">
         @foreach ($posts as $post)
-            <div class="bg-white w-full mt-3 rounded-lg shadow-sm">
+            <div class="bg-white w-full mb-3 rounded-lg shadow-sm">
                 <div class="user p-4 flex items-center gap-x-2">
                     <img src="{{ $post->user->image_url }}" class="w-12 h-12 rounded-full">
                     <div class="flex flex-col">
                         <span class="text-lg">{{ $post->user->name }}</span>
-                        <span class="text-sm text-gray-400">{{ $post->created_at->diffForHumans() }}</span>
+                        <div class="text-sm text-gray-400 flex items-center gap-x-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+
+                            <span>{{ $post->created_at->diffForHumans() }}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="px-4 py-2">
@@ -58,7 +66,8 @@
                 </div>
                 @if ($post->getFirstMedia())
                     <div class="bg-gray-50">
-                        <img src="{{ $post->getFirstMedia()->getUrl() }}" alt="">
+                        <img src="{{ $post->getFirstMedia()->getUrl() }}"
+                            class="rounded-b-lg max-h-[600px]  bg-cover mx-auto text-center">
                     </div>
                 @endif
             </div>

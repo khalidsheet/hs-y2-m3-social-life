@@ -10,7 +10,8 @@ class AppLayout extends Component
 {
     public $title;
 
-    public function __consturct(string $title = "LARAVEL APP")
+
+    public function __consturct(string $title = "LARAVEL APP", int $users = 4)
     {
         $this->title = $title;
     }

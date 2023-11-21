@@ -11,8 +11,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "content" => "required|string",
-            "image" => "nullable|image",
+            "content" => "nullable|string",
+            "image" => "nullable|image|required_if:content,null",
         ]);
 
         if ($validator->fails()) {
@@ -20,7 +20,10 @@ class PostController extends Controller
         }
 
         $post = new Post();
-        $post->content = $request->content;
+
+        if ($request->has("content")) {
+            $post->content = $request->content;
+        }
 
         if ($request->hasFile("image")) {
             $post->addMediaFromRequest('image')->toMediaCollection();
