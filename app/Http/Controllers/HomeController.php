@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Follow;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $followings = Follow::query()
-            ->where('following_id', '<>', auth()->user()->id)
-            ->where('is_accepted', 1)
-            ->pluck('following_id')->toArray();
+        $followings = User::find(auth()->user()->id)->followings()->pluck('following_id')->toArray();
 
         $posts = Post::query()
             ->with(['media', 'user'])

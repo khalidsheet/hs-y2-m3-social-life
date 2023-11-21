@@ -10,13 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('follows', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('follower_id');
-            $table->foreignId('following_id');
-            $table->timestamp('accepted_at')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('follows', function (Blueprint $table) {
+            $table->removeColumn('is_accepted');
         });
     }
 
@@ -25,6 +20,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('follows');
+        Schema::table('follows', function (Blueprint $table) {
+            //
+        });
     }
 };

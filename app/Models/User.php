@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Post;
+use App\Http\Traits\Followable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Followable;
 
     /**
      * The attributes that are mass assignable.
@@ -60,13 +61,5 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
-    }
 
-    public function following()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
-    }
 }

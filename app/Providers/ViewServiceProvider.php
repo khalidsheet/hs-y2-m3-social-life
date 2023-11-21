@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Follow;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use View;
 
@@ -22,20 +23,15 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('components.app-layout', function ($view) {
-            $followers = Follow::where('follower_id', '<>', auth()->user()->id)->where('is_accepted', 1)->with('follower')->get();
-            $sentFollowRequests = Follow::query()
-                ->where('follower_id', auth()->user()->id)
-                ->where('following_id', '<>', auth()->user()->id)
-                ->where('is_accepted', 0)
-                ->with('following')
-                ->get();
+            if (!auth()->check()) {
+                return redirect()->route('login');
+            }
 
-            $followRequests = Follow::query()
-                ->where('follower_id', '<>', auth()->user()->id)
-                ->where('following_id', auth()->user()->id)
-                ->where('is_accepted', 0)
-                ->with('following')
-                ->get();
+            $user = User::find(auth()->user()->id);
+
+            $followers = $user->followers();
+            $sentFollowRequests = $user->sentFollowRequests();
+            $followRequests = $user->followRequests();
 
             $view->with(compact('followers', 'sentFollowRequests', 'followRequests'));
         });
