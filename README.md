@@ -57,6 +57,7 @@ This is a social media platform designed to connect users, share posts, and faci
 - **id**: integer
 - **follower_id**: integer (foreign key to User Model)
 - **following_id**: integer (foreign key to User Model)
+- **accepted_at**: timestamp
 - **created_at**: timestamp
 - **updated_at**: timestamp
 
@@ -111,6 +112,7 @@ This is a social media platform designed to connect users, share posts, and faci
 | id           | Integer |
 | follower_id  | Integer |
 | following_id | Integer |
+| accepted_at  | Timestamp |
 | created_at   | Timestamp |
 | updated_at   | Timestamp |
 
