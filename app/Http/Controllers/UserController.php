@@ -13,6 +13,8 @@ class UserController extends Controller
             ->whereNot("id", auth()->user()->id)
             ->inRandomOrder()
             ->paginate(40);
+
+
         return view("people", compact("people"));
     }
 }

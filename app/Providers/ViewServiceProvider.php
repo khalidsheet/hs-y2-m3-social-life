@@ -27,11 +27,9 @@ class ViewServiceProvider extends ServiceProvider
                 return redirect()->route('login');
             }
 
-            $user = User::find(auth()->user()->id);
-
-            $followers = $user->followers();
-            $sentFollowRequests = $user->sentFollowRequests();
-            $followRequests = $user->followRequests();
+            $followers = auth()->user()->followers();
+            $sentFollowRequests = auth()->user()->sentFollowRequests();
+            $followRequests = auth()->user()->followRequests();
 
             $view->with(compact('followers', 'sentFollowRequests', 'followRequests'));
         });
