@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
+use App\Mail\AccountVerification;
 use App\Models\User;
 use Auth;
 use Hash;
 use Illuminate\Http\Request;
+use Mail;
 use Validator;
 
 class AuthController extends Controller
@@ -54,21 +57,35 @@ class AuthController extends Controller
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
-        $credentials = $request->only("name", "email", "password");
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->image_url = fake()->imageUrl(150, 150);
 
+        $verificationPayload = encrypt($user);
+
         if ($user->save()) {
-            if (Auth::attempt(collect($credentials)->except('name')->toArray())) {
-                return redirect()->intended('/');
-            }
+            UserRegistered::dispatch($user);
+            return redirect()->route("auth.verify-account", ["payload" => $verificationPayload]);
         }
 
         return back()->withErrors('email', 'Invalid Credentials');
+    }
+
+    public function verifyAccount(Request $request)
+    {
+        $query = $request->query();
+        $email = decrypt($query['payload']);
+
+        $user = User::where('email', $email)->firstOrFail();
+
+        $user->email_verified_at = now();
+        $user->update();
+
+        if (Auth::loginUsingId($user->id)) {
+            return redirect()->route('home')->with('success', 'Verification Success!');
+        }
     }
 
     public function logout()

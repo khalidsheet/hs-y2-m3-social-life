@@ -22,6 +22,10 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('post.login');
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('post.register');
+    Route::get('/auth/verification', function () {
+        return view('auth.email-verification');
+    })->name('auth.verify-account');
+    Route::get('/auth/verify', [AuthController::class, 'verifyAccount'])->name('auth.verify');
 });
 
 Route::group(['middleware' => "auth"], function () {
