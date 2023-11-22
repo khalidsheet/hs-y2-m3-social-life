@@ -7,8 +7,16 @@
             </div>
             <div class="bg-white w-[500px] rounded-lg drop-shadow-xl px-6 py-4">
 
-                <form action="{{ route('post.login') }}" method="POST" class="flex flex-col gap-y-6 py-4">
+                <form action="{{ route('post.register') }}" method="POST" class="flex flex-col gap-y-6 py-4">
                     @csrf
+                    <div class="flex flex-col gap-y-2">
+                        <label class="text-gray-600">Name</label>
+                        <x-input name="name" placeholder="Enter your name" autocomplete="off" :value="old('name')" />
+                        @if ($errors->has('name'))
+                            <x-alert variant="danger">{{ $errors->get('name')[0] }}</x-alert>
+                        @endif
+
+                    </div>
                     <div class="flex flex-col gap-y-2">
                         <label class="text-gray-600">E-mail</label>
                         <x-input name="email" placeholder="Enter your email" autocomplete="off" :value="old('email')" />
@@ -26,15 +34,16 @@
                         @endif
                     </div>
                     <div>
-                        <x-button>login</x-button>
+                        <x-button>Sign Up</x-button>
                     </div>
                 </form>
             </div>
             <div class="flex flex-col gap-y-2 mt-3 w-full">
-                <span class="text-gray-600 text-center">if you don't already hanve an account.</span>
-                <a href="{{ route('register') }}"
-                    class="bg-gray-200 text-center text-gray-600 py-3 rounded-lg font-bold hover:bg-gray-300 active:bg-gray-400 active:text-gray-800 transition duration-300">Sign
-                    up for free</a>
+                <span class="text-gray-600 text-center">if you already have an account.</span>
+                <a href="{{ route('login') }}"
+                    class="bg-gray-200 text-center text-gray-600 py-3 rounded-lg font-bold hover:bg-gray-300 active:bg-gray-400 active:text-gray-800 transition duration-300">
+                    Login
+                </a>
             </div>
         </div>
 
