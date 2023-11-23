@@ -12,7 +12,14 @@ class HomeController extends Controller
         $followings = User::find(auth()->user()->id)->followings()->pluck('following_id')->toArray();
 
         $posts = Post::query()
-            ->with(['media', 'user'])
+            ->with([
+                'media',
+                'user',
+                'likes' => function ($query) {
+                    $query->limit(2)->latest();
+                }
+            ])
+            ->withCount('likes', 'comments')
             ->whereIn('user_id', [...$followings, auth()->user()->id])
             ->orderBy("updated_at", "desc")
             ->paginate(40);

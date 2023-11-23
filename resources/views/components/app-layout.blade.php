@@ -24,7 +24,7 @@
             <div class="h-screen flex">
                 @auth
                     <div class="side-menu flex flex-col gap-y-6 bg-white w-[256px] pt-[92px] px-6 border-r border-gray-200">
-                        <a
+                        <a href="{{ route('home') }}"
                             class="flex gap-x-4 items-center text-gray-700  rounded-lg p-2 hover:cursor-pointer hover:bg-green-100 hover:text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">

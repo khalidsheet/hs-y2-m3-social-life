@@ -36,6 +36,7 @@ Route::group(['middleware' => "auth"], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::prefix('post')->group(function () {
         Route::post('/', [PostController::class, 'store'])->name('post.publish');
+        Route::get('{id}/details', [PostController::class, 'getPostDetails'])->name('get.post.details');
     });
 
     Route::get("people", [UserController::class, 'getPeople'])->name('get.people');

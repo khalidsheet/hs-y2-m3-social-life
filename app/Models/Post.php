@@ -23,6 +23,6 @@ class Post extends Model implements HasMedia
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(User::class, 'likes');
     }
 }

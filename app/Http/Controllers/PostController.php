@@ -34,4 +34,18 @@ class PostController extends Controller
         $post->save();
         return redirect()->back()->with('success');
     }
+
+    public function getPostDetails(Request $request, int $id)
+    {
+        $post = Post::query()->with([
+            'media',
+            'user',
+            'likes' => function ($query) {
+                $query->limit(2)->latest();
+            }
+        ])
+            ->withCount('likes', 'comments')->findOrFail($id);
+
+        return view('post.details', ['post' => $post]);
+    }
 }
