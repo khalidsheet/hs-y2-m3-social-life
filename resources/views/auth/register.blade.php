@@ -33,6 +33,14 @@
                             <x-alert variant="danger">{{ $errors->get('password')[0] }}</x-alert>
                         @endif
                     </div>
+                    <div class="flex flex-col gap-y-2">
+                        <label class="text-gray-600">Confirm Password</label>
+                        <x-input name="password_confirmation" placeholder="Enter your password again" type="password"
+                            autocomplete="new-password" />
+                        @if ($errors->has('password_confirmation'))
+                            <x-alert variant="danger">{{ $errors->get('password_confirmation')[0] }}</x-alert>
+                        @endif
+                    </div>
                     <div>
                         <x-button>Sign Up</x-button>
                     </div>
