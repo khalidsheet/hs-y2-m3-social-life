@@ -58,4 +58,5 @@ Route::group(['middleware' => "auth"], function () {
     });
 
     Route::get("people", [UserController::class, 'getPeople'])->name('get.people');
+    Route::get('explore', [PostController::class, 'getExplore'])->name('explore');
 });
