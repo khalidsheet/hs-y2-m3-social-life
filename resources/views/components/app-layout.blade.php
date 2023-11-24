@@ -63,7 +63,7 @@
                             <div class="mb-6">
                                 <h2 class="font-bold mb-4">Sent Requests ({{ $sentFollowRequests->count() }})</h2>
                                 @foreach ($sentFollowRequests as $request)
-                                    <div class="w-full bg-gray-50 p-4 rounded-lg flex items-center justify-between">
+                                    <div class="w-full bg-gray-50 p-4 mb-4 rounded-lg flex items-center justify-between">
 
                                         <div class="flex items-center gap-x-3">
                                             <div>
@@ -77,14 +77,19 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <button class="w-10 h-10 p-2 bg-gray-200 text-gray-700 rounded-md">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-
-                                            </button>
+                                            <form action="{{ route('follow.cancel') }}" method="POST"
+                                                class="w-10 h-10 p-2 bg-gray-200 text-gray-700 rounded-md">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ $request->follower->id }}">
+                                                <button type="submit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 @endforeach
