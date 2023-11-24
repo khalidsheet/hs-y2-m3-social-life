@@ -55,7 +55,6 @@
         <form action="{{ route('like') }}" method="POST" class="w-full">
             @csrf
             <input type="hidden" name="post_id" value="{{ $post->id }}">
-            <input type="hidden" name="user_id" value="{{ $post->user->id }}">
             <button type="submit"
                 class="hover:bg-blue-100 hover:text-blue-600 cursor-pointer w-full flex justify-center py-2 rounded-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

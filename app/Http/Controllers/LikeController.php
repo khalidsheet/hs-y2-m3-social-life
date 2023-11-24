@@ -10,7 +10,7 @@ class LikeController extends Controller
     public function like(Request $request)
     {
 
-        $like = Like::where("user_id", $request->user_id)->where('post_id', $request->post_id)->first();
+        $like = Like::where("user_id", auth()->id())->where('post_id', $request->post_id)->first();
 
         if ($like) {
             $like->delete();
@@ -20,7 +20,7 @@ class LikeController extends Controller
 
         $like = new Like();
         $like->post_id = $request->post_id;
-        $like->user_id = $request->user_id;
+        $like->user_id = auth()->id();
 
         if ($like->save()) {
             return redirect()->to(url()->previous() . "#post-$request->post_id");
