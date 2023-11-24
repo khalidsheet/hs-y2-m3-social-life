@@ -11,7 +11,7 @@ class FollowController extends Controller
     {
         $user = auth()->user();
         $userToAccept = User::findOrFail($request->user_id);
-        $user->acceptIncomingFollowRequest($userToAccept);
+        $user->acceptFollowRequest($userToAccept);
         return back();
     }
 

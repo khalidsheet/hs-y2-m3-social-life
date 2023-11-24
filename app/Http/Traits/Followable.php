@@ -19,8 +19,8 @@ trait Followable
     public function unfollow(Model $model, bool $forceUnfollow = true)
     {
         return Follow::query()
-            ->where("following_id", $this->id)
-            ->where("follower_id", $model->id)
+            ->where("follower_id", $this->id)
+            ->where("following_id", $model->id)
             ->when($forceUnfollow, function ($query) {
                 $query->whereNotNull("accepted_at");
             })
