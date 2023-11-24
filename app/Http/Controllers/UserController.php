@@ -9,9 +9,9 @@ class UserController extends Controller
     public function getPeople()
     {
         $people = User::whereNotIn('id', function ($query) {
-            $query->select('following_id')
+            $query->select('follower_id')
                 ->from('follows')
-                ->where('follower_id', auth()->id());
+                ->where('follower_id', '<>', auth()->id());
         })
             ->where('id', '<>', auth()->id())
             ->inRandomOrder()
