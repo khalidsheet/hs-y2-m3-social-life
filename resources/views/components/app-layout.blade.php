@@ -34,7 +34,7 @@
                             </svg>
                             <span>Home</span>
                         </a>
-                        <a
+                        <a href="{{ route('explore') }}"
                             class="flex gap-x-4 items-center text-gray-700  rounded-lg p-2 hover:cursor-pointer hover:bg-green-100 hover:text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
