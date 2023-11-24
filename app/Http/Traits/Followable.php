@@ -93,8 +93,8 @@ trait Followable
     public function followings()
     {
         return Follow::query()
-            ->where('following_id', '<>', $this->id)
-            ->where('follower_id', $this->id)
+            ->where('following_id', $this->id)
+            ->where('follower_id', '<>', $this->id)
             ->whereNotNull('accepted_at')
             ->with('follower')
             ->get();

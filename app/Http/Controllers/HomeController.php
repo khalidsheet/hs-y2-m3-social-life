@@ -9,7 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $followings = User::find(auth()->user()->id)->followings()->pluck('following_id')->toArray();
+        $followings = User::find(auth()->user()->id)->followings()->pluck('follower_id')->toArray();
+
 
         $posts = Post::query()
             ->with([
