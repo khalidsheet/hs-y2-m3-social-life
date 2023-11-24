@@ -114,22 +114,36 @@
                                             </div>
                                         </div>
                                         <div class="flex gap-x-3">
-                                            <button class="w-10 h-10 p-2 bg-green-100 text-green-500 rounded-md">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M4.5 12.75l6 6 9-13.5" />
-                                                </svg>
+                                            <form action="{{ route('follow.accept') }}" method="POST"
+                                                class="w-10 h-10 p-2 bg-green-100 text-green-500 rounded-md">
+                                                @csrf
 
-                                            </button>
-                                            <button class="w-10 h-10 p-2 bg-red-100 text-red-500 rounded-md">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
+                                                <input type="hidden" name="user_id"
+                                                    value="{{ $followRequest->following->id }}">
 
-                                            </button>
+                                                <button type="submit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M4.5 12.75l6 6 9-13.5" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('follow.decline') }}" method="POST"
+                                                class="w-10 h-10 p-2 bg-red-100 text-red-500 rounded-md">
+                                                @csrf
+                                                <input type="hidden" name="user_id"
+                                                    value="{{ $followRequest->following->id }}">
+                                                <button type="submit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 @endforeach
