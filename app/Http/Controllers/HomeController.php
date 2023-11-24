@@ -17,7 +17,7 @@ class HomeController extends Controller
                 'user',
                 'likes' => function ($query) {
                     $query->limit(2)->latest();
-                }
+                },
             ])
             ->withCount('likes', 'comments')
             ->whereIn('user_id', [...$followings, auth()->user()->id])
