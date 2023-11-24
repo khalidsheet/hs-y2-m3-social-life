@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +40,21 @@ Route::group(['middleware' => "auth"], function () {
     Route::prefix('post')->group(function () {
         Route::post('/', [PostController::class, 'store'])->name('post.publish');
         Route::get('{id}/details', [PostController::class, 'getPostDetails'])->name('get.post.details');
+    });
+
+    Route::prefix('comment')->group(function () {
+        Route::post('', [CommentController::class, 'writeComment'])->name('comment');
+    });
+
+    Route::prefix('like')->group(function () {
+        Route::post('', [LikeController::class, 'like'])->name('like');
+    });
+
+    Route::prefix('follow')->group(function () {
+        Route::post('', [FollowController::class, 'followRequest'])->name('follow');
+        Route::post('accept', [FollowController::class, 'acceptIncomingFollowRequest'])->name('follow.accept');
+        Route::post('decline', [FollowController::class, 'declineIncomingFollowRequest'])->name('follow.decline');
+        Route::post('cancel-outgoing', [FollowController::class, 'cancelOutgoingRequest'])->name('follow.cancel');
     });
 
     Route::get("people", [UserController::class, 'getPeople'])->name('get.people');

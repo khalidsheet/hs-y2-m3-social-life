@@ -42,6 +42,9 @@ class PostController extends Controller
             'user',
             'likes' => function ($query) {
                 $query->limit(2)->latest();
+            },
+            'comments' => function ($query) {
+                $query->with('user')->latest();
             }
         ])
             ->withCount('likes', 'comments')->findOrFail($id);
