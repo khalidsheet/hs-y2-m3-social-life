@@ -12,6 +12,7 @@ class FollowController extends Controller
         $user = auth()->user();
         $userToAccept = User::findOrFail($request->user_id);
         $user->acceptFollowRequest($userToAccept);
+        cache()->forget("app.followers");
         return back();
     }
 
@@ -20,6 +21,8 @@ class FollowController extends Controller
         $user = auth()->user();
         $userToDecline = User::findOrFail($request->user_id);
         $user->declineFollowRequest($userToDecline);
+        cache()->forget("app.followers");
+
         return back();
     }
 
@@ -29,6 +32,8 @@ class FollowController extends Controller
         $user = auth()->user();
         $userToDecline = User::findOrFail($request->user_id);
         $user->cancelOutgoingFollowRequest($userToDecline);
+        cache()->forget("app.followers");
+
         return back();
     }
 
@@ -37,6 +42,7 @@ class FollowController extends Controller
         $user = auth()->user();
         $userToFollow = User::findOrFail($request->user_id);
         $user->follow($userToFollow);
+        cache()->forget("app.followers");
         return back();
     }
 }
