@@ -13,6 +13,7 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="stylesheet" href="{{ asset('/assets/css/app.css?v=') }}{{ now()->timestamp }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/icons.min.css') }}">
+    <script src="{{ asset('/assets/js/app.js?v=') }}{{ now()->timestamp }}" defer></script>
 </head>
 
 <body class="h-full">
@@ -53,7 +54,7 @@
                         </a>
                     </div>
                 @endauth
-                <div class="px-6 flex-1 {{ !!auth()->user() ? 'pt-[92px] overflow-y-scroll' : '' }}">
+                <div class="content px-6 flex-1 {{ !!auth()->user() ? 'pt-[92px] overflow-y-scroll' : '' }}">
                     {{ $slot }}
                 </div>
                 @auth
@@ -66,11 +67,11 @@
 
                                         <div class="flex items-center gap-x-3">
                                             <div>
-                                                <img src="{{ $request->following->image_url }}"
+                                                <img src="{{ $request->follower->image_url }}"
                                                     class="w-12 h-12 rounded-full" alt="">
                                             </div>
                                             <div class="flex flex-col">
-                                                <span>{{ $request->following->name }}</span>
+                                                <span>{{ $request->follower->name }}</span>
                                                 <span
                                                     class="text-sm text-gray-400">{{ $request->created_at->diffForHumans() }}</span>
                                             </div>
@@ -92,19 +93,19 @@
                         @if ($followRequests->count() > 0)
                             <div class="mb-4">
                                 <h2 class="font-bold mb-4">Follow Requests ({{ $followRequests->count() }})</h2>
-                                @foreach ($followRequests as $request)
+                                @foreach ($followRequests as $followRequest)
                                     <div class="w-full bg-gray-50 p-4 rounded-lg flex items-center justify-between">
 
                                         <div class="flex items-center gap-x-3">
                                             <div>
-                                                <img src="{{ $request->follower->image_url }}"
+                                                <img src="{{ $followRequest->following->image_url }}"
                                                     class="w-12 h-12 rounded-full" alt="">
                                             </div>
                                             <div class="flex flex-col">
                                                 <span
-                                                    title="{{ $request->follower->name }}">{{ Str::limit($request->follower->name, 13, '...') }}</span>
+                                                    title="{{ $followRequest->following->name }}">{{ Str::limit($followRequest->following->name, 13, '...') }}</span>
                                                 <span
-                                                    class="text-sm text-gray-400">{{ $request->created_at->diffForHumans() }}</span>
+                                                    class="text-sm text-gray-400">{{ $followRequest->created_at->diffForHumans() }}</span>
                                             </div>
                                         </div>
                                         <div class="flex gap-x-3">

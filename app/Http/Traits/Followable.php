@@ -41,6 +41,15 @@ trait Followable
             ->update(["accepted_at" => now()]);
     }
 
+    public function cancelOutgoingFollowRequest(Model $model)
+    {
+        return Follow::query()
+            ->where("following_id", $this->id)
+            ->where("follower_id", $model->id)
+            ->whereNull("accepted_at")
+            ->forceDelete();
+    }
+
 
     public function isFollowing(Model $model)
     {
@@ -54,20 +63,20 @@ trait Followable
     public function followRequests()
     {
         return Follow::query()
-            ->where('follower_id', '<>', $this->id)
-            ->where('following_id', $this->id)
+            ->where('follower_id', $this->id)
+            ->where('following_id', '<>', $this->id)
             ->whereNull('accepted_at')
-            ->with('following')
+            ->with('following', 'follower')
             ->get();
     }
 
     public function sentFollowRequests()
     {
         return Follow::query()
-            ->where('follower_id', $this->id)
-            ->where('following_id', '<>', $this->id)
+            ->where('follower_id', '<>', $this->id)
+            ->where('following_id', $this->id)
             ->whereNull('accepted_at')
-            ->with('following')
+            ->with('follower')
             ->get();
     }
 
