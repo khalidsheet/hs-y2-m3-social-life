@@ -13,7 +13,9 @@
                         <span class="text-xs text-gray-400">Joined {{ $person->created_at->diffForHumans() }}</span>
                     </div>
                     <div>
-                        <form action="#" method="post">
+                        <form action="{{ route('follow') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $person->id }}">
                             <button
                                 class="bg-gray-100 px-6 py-2 rounded-lg hover:bg-gray-200 active:bg-gray-300 text-gray-600 flex gap-x-2 items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
