@@ -10,10 +10,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $followings = User::find(auth()->user()->id)->followings()->pluck('follower_id')->toArray();
 
+        $posts = Cache::remember('home.posts' . auth()->id(), 3600, function () {
+            $followings = User::find(auth()->user()->id)->followings()->pluck('follower_id')->toArray();
 
-        $posts = Cache::remember('home.posts', 3600, function () use ($followings) {
             return Post::query()
                 ->with([
                     'media',
@@ -27,7 +27,6 @@ class HomeController extends Controller
                 ->orderBy("updated_at", "desc")
                 ->paginate(40);
         });
-
 
         return view("welcome", compact("posts"));
     }
